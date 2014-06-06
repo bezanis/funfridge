@@ -1,0 +1,11 @@
+{
+    "name": "FnFridge",
+    "version": "0.0.0",
+    "description": "Fn Fridge",
+    "dependencies": {
+        "socket.io": "latest",
+        "express": "latest",
+        "jade": "latest"
+    },
+    "author": "John Bezanis"
+}
