@@ -28,7 +28,7 @@ $(function() {
 			$('#uploadschool').ajaxSubmit(function(){});
 		});
 		$("#obj_opener").mousedown(function() {
-  			var bottleOpen = new Audio("/bottle-open.mp3");
+  			var bottleOpen = new Audio("/sounds/bottle-open.mp3");
   			bottleOpen.play();
 		});
     });
