@@ -1,7 +1,7 @@
 var socket;
 var sessionid;
 $(function() {
-	socket = io.connect('http://ps334592.dreamhostps.com:9876/');
+	socket = io.connect('http://ps545991.dreamhostps.com:9876/');
     socket.on('connect', function () {
     	sessionid = this.socket.sessionid;
 	});

@@ -44,7 +44,6 @@ app.set('view engine', "jade");
 app.engine('jade', require('jade').__express);
 app.get("/", function(req, res){
     res.render("page");
-    res.write('got it');
     res.end();
 });
 
