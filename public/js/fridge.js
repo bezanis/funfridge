@@ -1,7 +1,8 @@
+var socketUrl = 'http://ps545991.dreamhostps.com:9876/';
 var socket;
 var sessionid;
 $(function() {
-	socket = io.connect('http://ps545991.dreamhostps.com:9876/');
+	socket = io.connect(socketUrl);
     socket.on('connect', function () {
     	sessionid = this.socket.sessionid;
 	});
@@ -30,6 +31,9 @@ $(function() {
 		$("#obj_opener").mousedown(function() {
   			var bottleOpen = new Audio("/sounds/bottle-open.mp3");
   			bottleOpen.play();
+		});
+		$("#obj_octocat").mouseup(function() {
+			window.open('https://github.com/bezanis/funfridge','_blank');
 		});
     });
     socket.on('message', function (data) {

@@ -1,15 +1,14 @@
+var port = 9876;
+var uploadPath = __dirname+"/public/uploads";
+var xBound = 530;
+var yBound = 850;
 var express = require("express");
 var im = require('imagemagick');
-//var gm = require('gm');
 var busboy = require('connect-busboy');
 var format = require('util').format;
 var qs = require('querystring');
 var fs = require('fs');
 var app = express();
-var port = 9876;
-var uploadPath = __dirname+"/public/uploads";
-var xBound = 530;
-var yBound = 850;
 
 var objs = new Object();
 var obj_count=0;
@@ -24,6 +23,9 @@ obj_count++;
 objs['obj_opener'] = {id:'obj_opener',type:'opener',img:'/images/heisen-opener.png',
 	x:400,y:500};
 obj_count++;
+objs['obj_octocat'] = {id:'obj_octocat',type:'octocat',img:'/images/octocat.png',
+		x:300,y:300};
+	obj_count++;
 
 var objects = ['at-r', 'a-r','a-o','a-y','a-g','a-b','a-p','b-g','b-b','c-p','c-r','d-o',
 	'd-y','d-g','d-b','e-p','e-r','e-o','e-y','e-g','e-b','f-p','f-r','g-o','g-y',
@@ -71,17 +73,8 @@ app.post("/uploadschool", function(req, res){
 					schoolPic = '/uploads/preview/' + file_name + '.jpg';
 					objs['obj_schoolpic']['img'] = schoolPic;
 					io.sockets.emit('schoolimage', { path:schoolPic});
-					
 				}
 			});
-			
-			/*gm('/path/to/image.jpg')
-			.resize(353, 257)
-			.autoOrient()
-			.write(writeStream, function (err) {
-			  if (!err) console.log(' hooray! ');
-			});*/
-
         });
     });
     res.end();
