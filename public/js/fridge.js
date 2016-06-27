@@ -1,4 +1,4 @@
-var socketUrl = 'http://ps545991.dreamhostps.com:9876/';
+var socketUrl = 'http://ps545991.dreamhostps.com:9875/';
 var socket;
 var sessionid;
 $(function() {
@@ -34,6 +34,9 @@ $(function() {
 		});
 		$("#obj_octocat").mouseup(function() {
 			window.open('https://github.com/bezanis/funfridge','_blank');
+		});
+		$("#obj_shapesthegame").mouseup(function() {
+			window.open('http://shapesthegame.com','_blank');
 		});
     });
     socket.on('message', function (data) {

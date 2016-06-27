@@ -1,4 +1,4 @@
-var port = 9876;
+var port = 9875;
 var uploadPath = __dirname+"/public/uploads";
 var xBound = 530;
 var yBound = 850;
@@ -14,18 +14,21 @@ var objs = new Object();
 var obj_count=0;
 var schoolPic = '/uploads/preview/bigfoot.jpg';
 
-objs['obj_schoolpic'] = {id:'obj_schoolpic',type:'schoolpic',img:schoolPic,
-	x:220,y:280};
-obj_count++;
-objs['obj_school'] = {id:'obj_school',type:'school',img:'/images/school.png',
-	x:200,y:200};
-obj_count++;
+//objs['obj_schoolpic'] = {id:'obj_schoolpic',type:'schoolpic',img:schoolPic,
+//	x:220,y:280};
+//obj_count++;
+//objs['obj_school'] = {id:'obj_school',type:'school',img:'/images/school.png',
+//	x:200,y:200};
+//obj_count++;
 objs['obj_opener'] = {id:'obj_opener',type:'opener',img:'/images/heisen-opener.png',
 	x:400,y:500};
 obj_count++;
 objs['obj_octocat'] = {id:'obj_octocat',type:'octocat',img:'/images/octocat.png',
-		x:300,y:300};
-	obj_count++;
+	x:300,y:300};
+obj_count++;
+objs['obj_shapesthegame'] = {id:'obj_shapesthegame',type:'shapesthegame',img:'/images/shapesthegame.png',
+	x:100,y:200};
+obj_count++;
 
 var objects = ['at-r', 'a-r','a-o','a-y','a-g','a-b','a-p','b-g','b-b','c-p','c-r','d-o',
 	'd-y','d-g','d-b','e-p','e-r','e-o','e-y','e-g','e-b','f-p','f-r','g-o','g-y',
@@ -49,10 +52,10 @@ app.get("/", function(req, res){
     res.end();
 });
 
-app.use(busboy({limits: {fileSize: 10000000}})); 
+app.use(busboy({limits: {fileSize: 1000000}})); 
 app.use(express.static(__dirname + '/public'));
 
-app.post("/uploadschool", function(req, res){
+/*app.post("/uploadschool", function(req, res){
 	var file_name = new Date().getTime();
 	var fstream;
     req.pipe(req.busboy);
@@ -71,6 +74,7 @@ app.post("/uploadschool", function(req, res){
 					console.log('error while resizing images' + stderr);
 				}else{
 					schoolPic = '/uploads/preview/' + file_name + '.jpg';
+					schoolPic = '/uploads/preview/bigfoot.jpg'
 					objs['obj_schoolpic']['img'] = schoolPic;
 					io.sockets.emit('schoolimage', { path:schoolPic});
 				}
@@ -78,7 +82,7 @@ app.post("/uploadschool", function(req, res){
         });
     });
     res.end();
-});
+});*/
 
 var io = require('socket.io').listen(app.listen(port));
 console.log("Listening on port " + port);
@@ -86,13 +90,13 @@ console.log("Listening on port " + port);
 io.sockets.on('connection', function (socket) {
     socket.emit('init', { objs: objs});
     socket.on('send', function (data) {
-		if(parseInt(data.x)!= NaN && parseInt(data.y)!= NaN){
+		if(objs[data.obj] && objs[data.obj].type!=null && parseInt(data.x)!= NaN && parseInt(data.y)!= NaN){
 			data.x = Math.max(0,Math.min(xBound,parseInt(data.x)));
 			data.y = Math.max(0,Math.min(yBound,parseInt(data.y)));
-			if(data.obj=='obj_school'){
-	    		objs['obj_schoolpic'].x = data.x+20;
-	    		objs['obj_schoolpic'].y = data.y+80;
-			}
+			//if(data.obj=='obj_school'){
+	    	//	objs['obj_schoolpic'].x = data.x+20;
+	    	//	objs['obj_schoolpic'].y = data.y+80;
+			//}
 	    	objs[data.obj].x = data.x;
 	    	objs[data.obj].y = data.y;
 	    	
